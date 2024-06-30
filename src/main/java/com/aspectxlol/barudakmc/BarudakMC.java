@@ -14,6 +14,10 @@ public final class BarudakMC extends JavaPlugin {
 
     FileConfiguration config = getConfig();
 
+    BarudakMC getInstance() {
+        return this;
+    }
+
     public String getUrl() {
         if (isDiscordWebhookUri(Objects.requireNonNull(config.getString("webhookUri")))) return config.getString("webhookUri");
         System.out.println("[BarudakMC] Invalid webhook uri / disabling Plugin");
@@ -25,9 +29,9 @@ public final class BarudakMC extends JavaPlugin {
     public void onEnable() {
         System.out.println("[BarudakMC] Plugin Started");
 
-        getServer().getPluginManager().registerEvents(new onMessageListener(), this);
-        getServer().getPluginManager().registerEvents(new onJoinAndLeaveListener(), this);
-        getServer().getPluginManager().registerEvents(new onDeathListener(), this);
+        getServer().getPluginManager().registerEvents(new onMessageListener(getInstance()), this);
+        getServer().getPluginManager().registerEvents(new onJoinAndLeaveListener(getInstance()), this);
+        getServer().getPluginManager().registerEvents(new onDeathListener(getInstance()), this);
 
         config.addDefault("webhookUri", "Replace with your webhook url");
         config.options().copyDefaults(true);

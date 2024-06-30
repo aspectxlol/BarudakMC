@@ -10,9 +10,9 @@ import java.io.IOException;
 
 public class onDeathListener implements Listener {
 
-    private BarudakMC barudakMC;
+    private final BarudakMC barudakMC;
 
-    onDeathListener(BarudakMC barudakMC) {
+    public onDeathListener(BarudakMC barudakMC) {
         this.barudakMC = barudakMC;
     }
 

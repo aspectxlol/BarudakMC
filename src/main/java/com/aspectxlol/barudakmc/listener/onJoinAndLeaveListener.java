@@ -12,9 +12,9 @@ import java.io.IOException;
 
 public class onJoinAndLeaveListener implements Listener {
 
-    private BarudakMC barudakMC;
+    private final BarudakMC barudakMC;
 
-    onJoinAndLeaveListener(BarudakMC barudakMC) {
+    public onJoinAndLeaveListener(BarudakMC barudakMC) {
         this.barudakMC = barudakMC;
     }
 

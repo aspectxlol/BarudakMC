@@ -8,9 +8,9 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import java.io.IOException;
 
 public class onMessageListener implements Listener {
-    private BarudakMC barudakMC;
+    private final BarudakMC barudakMC;
 
-    onMessageListener(BarudakMC barudakMC) {
+    public onMessageListener(BarudakMC barudakMC) {
         this.barudakMC = barudakMC;
     }
 
