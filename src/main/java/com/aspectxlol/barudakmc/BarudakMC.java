@@ -1,5 +1,7 @@
 package com.aspectxlol.barudakmc;
 
+import com.aspectxlol.barudakmc.listener.onDeathListener;
+import com.aspectxlol.barudakmc.listener.onJoinAndLeaveListener;
 import com.aspectxlol.barudakmc.listener.onMessageListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -12,6 +14,8 @@ public final class BarudakMC extends JavaPlugin {
     public void onEnable() {
         System.out.println("[BarudakMC] Plugin Started");
         getServer().getPluginManager().registerEvents(new onMessageListener(), this);
+        getServer().getPluginManager().registerEvents(new onJoinAndLeaveListener(), this);
+        getServer().getPluginManager().registerEvents(new onDeathListener(), this);
 
         DiscordWebhook discordWebhook = new DiscordWebhook("https://discord.com/api/webhooks/1256894119876362261/3wtZqGIU7w69j-7vgzrP_o-jg724LeGgdHMSYaq6R74zujtBlKprg4G6E4T5kifguNH3");
         discordWebhook.setUsername("Server");
