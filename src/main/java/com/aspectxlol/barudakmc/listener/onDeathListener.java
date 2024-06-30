@@ -15,8 +15,10 @@ public class onDeathListener implements Listener {
         discordWebhook.setUsername(event.getEntity().getDisplayName());
         discordWebhook.setAvatarUrl("https://api.tydiumcraft.net/v1/players/skin?uuid=" + event.getEntity().getUniqueId() + "&type=avatar");
 
-        DiscordWebhook.EmbedObject JoinEmbed = new DiscordWebhook.EmbedObject();
-        JoinEmbed.setTitle(event.getDeathMessage());
+        DiscordWebhook.EmbedObject DeathEmbed = new DiscordWebhook.EmbedObject();
+        DeathEmbed.setTitle(event.getDeathMessage());
+
+        discordWebhook.addEmbed(DeathEmbed);
 
         try {
             discordWebhook.execute();

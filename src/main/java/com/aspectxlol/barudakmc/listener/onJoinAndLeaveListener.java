@@ -17,7 +17,7 @@ public class onJoinAndLeaveListener implements Listener {
         discordWebhook.setUsername("Server");
 
         DiscordWebhook.EmbedObject JoinEmbed = new DiscordWebhook.EmbedObject();
-        JoinEmbed.setTitle(event.getPlayer().getDisplayName() + "Joined the Server");
+        JoinEmbed.setTitle(event.getPlayer().getDisplayName() + " Joined the Server");
 
         discordWebhook.addEmbed(JoinEmbed);
 
@@ -34,7 +34,7 @@ public class onJoinAndLeaveListener implements Listener {
         discordWebhook.setUsername("Server");
 
         DiscordWebhook.EmbedObject JoinEmbed = new DiscordWebhook.EmbedObject();
-        JoinEmbed.setTitle(event.getPlayer().getDisplayName() + "Left the Server");
+        JoinEmbed.setTitle(event.getPlayer().getDisplayName() + " Left the Server");
 
         discordWebhook.addEmbed(JoinEmbed);
 
