@@ -1,5 +1,6 @@
 package com.aspectxlol.barudakmc.listener;
 
+import com.aspectxlol.barudakmc.BarudakMC;
 import com.aspectxlol.barudakmc.DiscordWebhook;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,9 +12,15 @@ import java.io.IOException;
 
 public class onJoinAndLeaveListener implements Listener {
 
+    private BarudakMC barudakMC;
+
+    onJoinAndLeaveListener(BarudakMC barudakMC) {
+        this.barudakMC = barudakMC;
+    }
+
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        DiscordWebhook discordWebhook = new DiscordWebhook("https://discord.com/api/webhooks/1256894119876362261/3wtZqGIU7w69j-7vgzrP_o-jg724LeGgdHMSYaq6R74zujtBlKprg4G6E4T5kifguNH3");
+        DiscordWebhook discordWebhook = new DiscordWebhook(this.barudakMC.getUrl());
         discordWebhook.setUsername("Server");
 
         DiscordWebhook.EmbedObject JoinEmbed = new DiscordWebhook.EmbedObject();
@@ -30,7 +37,7 @@ public class onJoinAndLeaveListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerQuitEvent event) {
-        DiscordWebhook discordWebhook = new DiscordWebhook("https://discord.com/api/webhooks/1256894119876362261/3wtZqGIU7w69j-7vgzrP_o-jg724LeGgdHMSYaq6R74zujtBlKprg4G6E4T5kifguNH3");
+        DiscordWebhook discordWebhook = new DiscordWebhook(this.barudakMC.getUrl());
         discordWebhook.setUsername("Server");
 
         DiscordWebhook.EmbedObject JoinEmbed = new DiscordWebhook.EmbedObject();
