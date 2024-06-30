@@ -20,8 +20,10 @@ public final class BarudakMC extends JavaPlugin {
 
     public String getUrl() {
         if (isDiscordWebhookUri(Objects.requireNonNull(config.getString("webhookUri")))) return config.getString("webhookUri");
-        System.out.println("[BarudakMC] Invalid webhook uri / disabling Plugin");
-        getServer().getPluginManager().disablePlugin(this);
+        System.out.println("[BarudakMC] Invalid webhook uri");
+//        getServer().getPluginManager().disablePlugin(this);
+//        this.setEnabled(false);
+        System.out.println("[BarudakMC]" + " " + config.getString("webhookUri"));
         return "";
     }
 
@@ -35,7 +37,7 @@ public final class BarudakMC extends JavaPlugin {
 
         config.addDefault("webhookUri", "Replace with your webhook url");
         config.options().copyDefaults(true);
-        this.saveDefaultConfig();
+//        this.saveDefaultConfig();
         saveConfig();
 
         DiscordWebhook discordWebhook = new DiscordWebhook(getUrl());
@@ -81,7 +83,7 @@ public final class BarudakMC extends JavaPlugin {
         if (parts.length != 6) {
             return false;
         }
-        if (!parts[0].toLowerCase().equals("https:")) {
+        if (!parts[0].equalsIgnoreCase("https:")) {
             return false;
         }
         if (!parts[1].equals("discord.com")) {
