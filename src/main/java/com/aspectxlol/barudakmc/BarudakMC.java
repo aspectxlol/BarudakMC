@@ -8,18 +8,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 public final class BarudakMC extends JavaPlugin {
 
     FileConfiguration config = getConfig();
 
-    BarudakMC getInstance() {
-        return this;
-    }
-
     public String getUrl() {
-        if (isDiscordWebhookUri(Objects.requireNonNull(config.getString("webhookUri")))) return config.getString("webhookUri");
+        if (isDiscordWebhookUri(Objects.requireNonNull(config.getString("webhookUri"))))
+            return config.getString("webhookUri");
         System.out.println("[BarudakMC] Invalid webhook uri");
 //        getServer().getPluginManager().disablePlugin(this);
 //        this.setEnabled(false);
@@ -31,9 +30,9 @@ public final class BarudakMC extends JavaPlugin {
     public void onEnable() {
         System.out.println("[BarudakMC] Plugin Started");
 
-        getServer().getPluginManager().registerEvents(new onMessageListener(getInstance()), this);
-        getServer().getPluginManager().registerEvents(new onJoinAndLeaveListener(getInstance()), this);
-        getServer().getPluginManager().registerEvents(new onDeathListener(getInstance()), this);
+        getServer().getPluginManager().registerEvents(new onMessageListener(this), this);
+        getServer().getPluginManager().registerEvents(new onJoinAndLeaveListener(this), this);
+        getServer().getPluginManager().registerEvents(new onDeathListener(this), this);
 
         config.addDefault("webhookUri", "Replace with your webhook url");
         config.options().copyDefaults(true);
@@ -77,31 +76,11 @@ public final class BarudakMC extends JavaPlugin {
     }
 
     public static boolean isDiscordWebhookUri(String url) {
-        // Basic structure of a Discord webhook URL:
-        // https://discord.com/api/webhooks/<guild_id>/<webhook_token>
-        String[] parts = url.split("/");
-        if (parts.length != 6) {
-            return false;
-        }
-        if (!parts[0].equalsIgnoreCase("https:")) {
-            return false;
-        }
-        if (!parts[1].equals("discord.com")) {
-            return false;
-        }
-        if (!parts[2].equals("api")) {
-            return false;
-        }
-        if (!parts[3].equals("webhooks")) {
-            return false;
-        }
         try {
-            // Check if the guild ID and webhook token are integers
-            Integer.parseInt(parts[4]);
-            Integer.parseInt(parts[5]);
-        } catch (NumberFormatException e) {
+            new URI(url);
+            return true;
+        } catch (URISyntaxException e) {
             return false;
         }
-        return true;
     }
 }
