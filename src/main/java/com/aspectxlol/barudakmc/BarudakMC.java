@@ -1,15 +1,22 @@
 package com.aspectxlol.barudakmc;
 
+import com.aspectxlol.barudakmc.listener.MessageReceiveListener;
 import com.aspectxlol.barudakmc.listener.onDeathListener;
 import com.aspectxlol.barudakmc.listener.onJoinAndLeaveListener;
 import com.aspectxlol.barudakmc.listener.onMessageListener;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.events.session.ReadyEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.Objects;
 
 public final class BarudakMC extends JavaPlugin {
@@ -20,10 +27,20 @@ public final class BarudakMC extends JavaPlugin {
         if (isDiscordWebhookUri(Objects.requireNonNull(config.getString("webhookUri"))))
             return config.getString("webhookUri");
         System.out.println("[BarudakMC] Invalid webhook uri");
-//        getServer().getPluginManager().disablePlugin(this);
-//        this.setEnabled(false);
         System.out.println("[BarudakMC]" + " " + config.getString("webhookUri"));
         return "";
+    }
+
+    public String getToken() {
+        if (isDiscordBotToken(Objects.requireNonNull(config.getString("token"))))
+            return config.getString("token");
+        System.out.println("[BarudakMC] Invalid Bot token");
+        System.out.println("[BarudakMC]" + " " + config.getString("token"));
+        return "";
+    }
+
+    public String getServerChatChannel() {
+        return config.getString("serverChatID");
     }
 
     @Override
@@ -35,8 +52,9 @@ public final class BarudakMC extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new onDeathListener(this), this);
 
         config.addDefault("webhookUri", "Replace with your webhook url");
+        config.addDefault("token", "Replace with your bot token");
+        config.addDefault("serverChatID", "Replace with your Server Chat Channel ID");
         config.options().copyDefaults(true);
-//        this.saveDefaultConfig();
         saveConfig();
 
         DiscordWebhook discordWebhook = new DiscordWebhook(getUrl());
@@ -53,6 +71,17 @@ public final class BarudakMC extends JavaPlugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        JDA jda = JDABuilder.createLight(getToken(), Collections.emptyList())
+                .addEventListeners(new MessageReceiveListener(this))
+                .addEventListeners(new ListenerAdapter() {
+                    @Override
+                    public void onReady(@NotNull ReadyEvent event) {
+                        super.onReady(event);
+                        System.out.println("[BarudakMC] Discord Bot is Ready");
+                    }
+                })
+                .build();
     }
 
     @Override
@@ -82,5 +111,10 @@ public final class BarudakMC extends JavaPlugin {
         } catch (URISyntaxException e) {
             return false;
         }
+    }
+
+    public static boolean isDiscordBotToken(String token) {
+        String regex = "^([\\w-]{24}\\.[\\w-]{6}\\.[\\w-]{27})|(mfa\\.[\\w-]{84})$";
+        return token != null && token.matches(regex);
     }
 }
