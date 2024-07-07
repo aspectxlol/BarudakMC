@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -111,10 +110,5 @@ public final class BarudakMC extends JavaPlugin {
         } catch (URISyntaxException e) {
             return false;
         }
-    }
-
-    public static boolean isDiscordBotToken(String token) {
-        String regex = "^([\\w-]{24}\\.[\\w-]{6}\\.[\\w-]{27})|(mfa\\.[\\w-]{84})$";
-        return token != null && token.matches(regex);
     }
 }
