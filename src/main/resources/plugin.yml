@@ -5,3 +5,8 @@ api-version: '1.21'
 authors: [ "aspectxlol" ]
 description: "A plugin for minecraft"
 load: STARTUP
+commands:
+  map:
+    description: create a map from an image
+    usage: /map
+    permission: BarudakMC.createMap

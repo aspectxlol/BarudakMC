@@ -1,5 +1,6 @@
 package com.aspectxlol.barudakmc;
 
+import com.aspectxlol.barudakmc.commands.MapCommand;
 import com.aspectxlol.barudakmc.listener.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -58,7 +59,7 @@ public final class BarudakMC extends JavaPlugin {
         StartEmbed.setTitle("Server is Starting");
         StartEmbed.setColor(Color.GREEN);
 
-
+        this.getCommand("map").setExecutor(new MapCommand());
 
         discordWebhook.addEmbed(StartEmbed);
 
