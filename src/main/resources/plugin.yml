@@ -4,3 +4,4 @@ main: com.aspectxlol.barudakmc.BarudakMC
 api-version: '1.21'
 authors: [ "aspectxlol" ]
 description: "A plugin for minecraft"
+load: STARTUP

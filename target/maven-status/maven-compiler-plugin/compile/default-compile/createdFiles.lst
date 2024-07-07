@@ -8,6 +8,9 @@ com\aspectxlol\barudakmc\DiscordWebhook$EmbedObject$Author.class
 com\aspectxlol\barudakmc\DiscordWebhook$EmbedObject$Field.class
 com\aspectxlol\barudakmc\DiscordWebhook$EmbedObject.class
 com\aspectxlol\barudakmc\DiscordWebhook$EmbedObject$Thumbnail.class
+com\aspectxlol\barudakmc\listener\MessageReceiveListener.class
 com\aspectxlol\barudakmc\DiscordWebhook$EmbedObject$Image.class
+com\aspectxlol\barudakmc\BarudakMC$1.class
 com\aspectxlol\barudakmc\DiscordWebhook$JSONObject.class
+com\aspectxlol\barudakmc\listener\CommandListener.class
 com\aspectxlol\barudakmc\listener\onJoinAndLeaveListener.class
